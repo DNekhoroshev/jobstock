@@ -19,8 +19,9 @@ public class OrderController {
     private ObjectMapper mapper = new ObjectMapper();
 
     @RequestMapping("/addOrder")
-    public int addOrder(@RequestParam(value = "description") String description) {
+    public int addOrder(@RequestParam(value = "name") String name, @RequestParam(value = "description") String description) {
         Order order = new Order();
+        order.setName(name);
         order.setDescription(description);
 
         orderDAO.addOrder(order);
