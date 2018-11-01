@@ -37,6 +37,7 @@ public class Application {
 		dao.addSkillToEmployee(emp, skill);
 		
 		Employee newEmp = dao.getEmployeeById(emp.getId());
+		logger.info("" + newEmp);
 		
 		
 //		Employee byId = dao.getEmployeeById(emp.getId());

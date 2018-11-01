@@ -25,6 +25,7 @@
 				<constructor-arg ref="dataSource" />
 			</bean>
 		</property>
+		<property name="skillNameDao" ref="skillNameDAO"/>
 	</bean>
 
 	

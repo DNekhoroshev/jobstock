@@ -59,7 +59,12 @@ public class Employee {
 	
 	@Override
 	public String toString() {
-		return name + " (" + id + ")";
+		StringBuffer sb = new StringBuffer();
+		sb.append(name + " (" + id + "). Skills ");
+		for (Skill skill : skills) {
+			sb.append("  Skill " + skill);
+		}
+		return sb.toString();
 	}
 	
 }

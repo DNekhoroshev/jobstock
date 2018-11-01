@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import ru.sberbank.cib.exchange.domain.Employee;
 import ru.sberbank.cib.exchange.domain.Skill;
+import ru.sberbank.cib.exchange.domain.SkillLevel;
+import ru.sberbank.cib.exchange.domain.SkillName;
 
 public class EmployeeDAO {
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeDAO.class);
@@ -26,9 +30,14 @@ public class EmployeeDAO {
 	
 	
 	private JdbcTemplate template;
+	private SkillNameDAO skillNameDao;
 	
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
+	}
+	
+	public void setSkillNameDao(SkillNameDAO skillNameDao) {
+		this.skillNameDao = skillNameDao;
 	}
 	
 	public void addEmployee(final Employee emp) {
@@ -58,10 +67,16 @@ public class EmployeeDAO {
 			}
 		});
 		
-//		template.queryForList(sql)
-		// fetch skills
-//		template.queryFor
-		
+		List<Map<String,Object>> list = template.queryForList(GET_EMPLOYEE_SKILLS_SQL, new Object[]{employee.getId()});
+		for (Map<String, Object> map : list) {
+			int skill_id = (Integer) map.get("skill_id");
+			SkillName skillName = skillNameDao.getSkillNameById(skill_id);
+			String level = (String) map.get("level");
+			Skill skill = new Skill();
+			skill.setSkillName(skillName);
+			skill.setSkillLevel(SkillLevel.valueOf(level));
+			employee.addSkill(skill);
+		}
 		return employee;
 	}
 	
