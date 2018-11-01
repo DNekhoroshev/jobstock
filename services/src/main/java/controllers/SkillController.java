@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sberbank.cib.exchange.dao.EmployeeDAO;
 import ru.sberbank.cib.exchange.dao.OrderDAO;
+import ru.sberbank.cib.exchange.dao.SkillNameDAO;
 import ru.sberbank.cib.exchange.domain.*;
 
 @RestController
@@ -16,12 +17,15 @@ public class SkillController {
     @Autowired
     private OrderDAO orderDAO;
 
+    @Autowired
+    private SkillNameDAO skillNameDAO;
+
     @RequestMapping("/addSkillName")
     public int addSkillName(@RequestParam(value = "name") String name) {
         SkillName skillName = new SkillName();
         skillName.setName(name);
 
-        //TODO Save to DB here
+        skillNameDAO.addSkillName(skillName);
 
         return skillName.getId();
     }
@@ -32,12 +36,13 @@ public class SkillController {
                                   @RequestParam(value = "level") String level)
     {
         Employee employee = employeeDAO.getEmployeeById(empId);
-        SkillName skillName = null; //TODO get skillName here
+        SkillName skillName = skillNameDAO.getSkillNameById(skillId);
 
         Skill skill = new Skill();
         skill.setSkillName(skillName);
         skill.setSkillLevel(SkillLevel.valueOf(level.toUpperCase()));
-        employee.getSkills().add(skill);
+
+        employeeDAO.addSkillToEmployee(employee, skill);
     }
 
     @RequestMapping("addSkillToOrder")
@@ -45,8 +50,8 @@ public class SkillController {
                                    @RequestParam(value = "skillNameId") int skillId,
                                    @RequestParam(value = "level") String level)
     {
-        Order order = orderDAO.getOrderById(orderId); //TODO get order from db here
-        SkillName skillName = null; //TODO get skillName here
+        Order order = orderDAO.getOrderById(orderId);
+        SkillName skillName = skillNameDAO.getSkillNameById(skillId);
 
         Skill skill = new Skill();
         skill.setSkillName(skillName);
