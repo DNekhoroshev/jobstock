@@ -7,7 +7,6 @@ public class Employee {
 	private int id;
 	private String name;
 	private List<Skill> skills = new ArrayList<Skill>();
-
 	
 	public int getId() {
 		return id;
@@ -23,6 +22,22 @@ public class Employee {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+	
+	public List<Skill> getSkills() {
+		return skills;
+	}
+	
+	public void addSkill(Skill skill) {
+		skills.add(skill);
+	}
+	
+	public void deleteSkill(Skill skill) {
+		skills.remove(skill);
 	}
 	
 	@Override
@@ -47,25 +62,4 @@ public class Employee {
 		return name + " (" + id + ")";
 	}
 	
-//	
-//	private Map<Skill, SkillLevel> skills = new HashMap<Skill, SkillLevel>();
-//	
-//	public Employee(int id, String name) {
-//		this.id = id;
-//		this.name = name;
-//	}
-//	
-//	public void addSkill(Skill skill, SkillLevel level) {
-//		skills.put(skill, level);
-//	}
-//	
-//	public int getId() {
-//		return id;
-//	}
-//	
-//	
-//	@Override
-//	public String toString() {
-//		
-//	}
 }

@@ -1,14 +1,12 @@
 package ru.sberbank.cib.exchange.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
 	private int id;
 	private String description;
-	
-//	private int skillId;
-//	private int level;
-//	private int weight;	
-//	private Skill skill;
-//	private SkillLevel level;
+	private List<Skill> skills = new ArrayList<Skill>();
 	
 	public void setId(int id) {
 		this.id = id;
@@ -24,6 +22,22 @@ public class Order {
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+	
+	public List<Skill> getSkills() {
+		return skills;
+	}
+	
+	public void addSkill(Skill skill) {
+		skills.add(skill);
+	}
+	
+	public void removeSkill(Skill skill) {
+		skills.remove(skill);
 	}
 	
 	@Override
