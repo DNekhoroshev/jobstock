@@ -9,7 +9,6 @@ public class Exchange {
 	public Map<Integer, Employee> employees = new HashMap<Integer, Employee>();
 	public Map<Integer, Order> orders = new HashMap<Integer, Order>();
 	
-	
 	public void addOrder(Order order) {
 		orders.put(order.getId(), order);
 	}
@@ -17,7 +16,6 @@ public class Exchange {
 	public void addEmployee(Employee employee) {
 		employees.put(employee.getId(), employee);
 	}
-	
 	
 	public List<Order> findJobs(Employee employee) {
 		return new ArrayList<Order>();
@@ -27,10 +25,18 @@ public class Exchange {
 	public List<Employee> findEmployees(Order order) {
 		return new ArrayList<Employee>();
 	}
+
+	
 	
 	public static void main(String[] args) {
 		Exchange exchange = new Exchange();
+		Skill skill = new Skill("Java");
+		SkillRegistry.addSkill(skill);
+		
+		
 		Employee employee = new  Employee(1, "Sidorov Ivan");
+		
+		
 		employee.addSkill(skill, SkillLevel.SENIOR);
 		
 		Order order = new Order(1, "Java Task 1");
