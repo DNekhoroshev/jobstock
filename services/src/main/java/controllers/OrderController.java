@@ -9,12 +9,12 @@ import ru.sberbank.cib.exchange.domain.Order;
 public class OrderController {
 
     @RequestMapping("/addorder")
-    public Order addOrder(@RequestParam(value = "description") String description) {
+    public int addOrder(@RequestParam(value = "description") String description) {
         Order order = new Order();
         order.setDescription(description);
 
         //TODO Save to DB here
 
-        return order;
+        return order.getId();
     }
 }
