@@ -64,7 +64,6 @@ public class Application {
 		logger.info("Found  " + orders.size());
 		
 		
-		
 /*		
 		
 		
