@@ -60,9 +60,11 @@ public class Application {
 		orderDAO.addSkillToOrder(order, skill);
 		logger.info("Add skill");
 		
+		
+		
+		
 		orders = matchingDao.getMatchedOrders(emp.getId());
 		logger.info("Found  " + orders.size());
-		
 		
 		
 /*		
