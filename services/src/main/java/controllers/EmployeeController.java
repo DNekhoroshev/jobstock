@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sberbank.cib.exchange.dao.EmployeeDAO;
 import ru.sberbank.cib.exchange.domain.Employee;
 
+import java.util.List;
+
 @RestController
 public class EmployeeController {
 	@Autowired
@@ -32,5 +34,12 @@ public class EmployeeController {
         Employee employee = employeeDAO.getEmployeeById(id);
 
         return mapper.writeValueAsString(employee);
+    }
+
+    @RequestMapping("/findAllEmployees")
+    public String findAllEmployees() throws JsonProcessingException {
+        List<Employee> employees = employeeDAO.getAll();
+
+        return mapper.writeValueAsString(employees);
     }
 }
