@@ -1,5 +1,7 @@
 package controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +14,8 @@ public class OrderController {
     @Autowired
     private OrderDAO orderDAO;
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     @RequestMapping("/addOrder")
     public int addOrder(@RequestParam(value = "description") String description) {
         Order order = new Order();
@@ -23,7 +27,9 @@ public class OrderController {
     }
 
     @RequestMapping("/findOrder")
-    public Order findOrder(@RequestParam(value = "id") int id) {
-        return orderDAO.getOrderById(id);
+    public String findOrder(@RequestParam(value = "id") int id) throws JsonProcessingException {
+        Order order = orderDAO.getOrderById(id);
+
+        return mapper.writeValueAsString(order);
     }
 }
