@@ -15,12 +15,10 @@ public class Application {
 		logger.info("Starting");
 		ApplicationContext context = new ClassPathXmlApplicationContext("/application.xml");
 		EmployeeDAO dao = context.getBean(EmployeeDAO.class);
-		
 		Employee emp = new Employee();
 		emp.setName("Hello");
 		dao.addEmployee(emp);
-		
-		logger.info("DAO: " + dao);
+		logger.info("Employee: " + emp);
 		logger.info("Started");
 		
 	}
