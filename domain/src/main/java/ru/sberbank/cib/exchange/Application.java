@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ru.sberbank.cib.exchange.dao.EmployeeDAO;
+import ru.sberbank.cib.exchange.dao.MatchingDao;
 import ru.sberbank.cib.exchange.dao.OrderDAO;
 import ru.sberbank.cib.exchange.dao.SkillNameDAO;
 import ru.sberbank.cib.exchange.domain.Employee;
@@ -43,6 +44,15 @@ public class Application {
 		skill.setSkillLevel(SkillLevel.SENIOR);
 		dao.addSkillToEmployee(emp, skill);
 		
+		MatchingDao matchingDao = context.getBean(MatchingDao.class);
+		List<Order> orders = matchingDao.getMatchedOrders(emp.getId());
+		
+		logger.info("Found  " + orders.size());
+		
+		
+/*		
+		
+		
 		Employee newEmp = dao.getEmployeeById(emp.getId());
 		logger.info("" + newEmp);
 		dao.addEmployee(newEmp);
@@ -57,7 +67,7 @@ public class Application {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
-		
+*/		
 //		Employee byId = dao.getEmployeeById(emp.getId());
 		
 //		OrderDAO orderDAO = context.getBean(OrderDAO.class);
