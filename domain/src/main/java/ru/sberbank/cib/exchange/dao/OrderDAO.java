@@ -25,7 +25,7 @@ import ru.sberbank.cib.exchange.domain.SkillName;
 
 public class OrderDAO {
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeDAO.class);
-	private static final String ADD_ORDER_SQL = "insert into task(description) values(?)";
+	private static final String ADD_ORDER_SQL = "insert into task(name, description) values(?, ?)";
 	private static final String GET_ORDER_BY_ID_SQL = "select * from task where id = ?";
 	private static final String ADD_SKILL_TO_ORDER_SQL = "insert into task_skills(task_id, skill_id, level) values(?, ?, ?)";
 	private static final String GET_ORDER_SKILLS_SQL = "select * from task_skills where task_id = ?";
@@ -49,7 +49,8 @@ public class OrderDAO {
             public PreparedStatement createPreparedStatement(Connection connection)
                 throws SQLException {
                 PreparedStatement ps =connection.prepareStatement(ADD_ORDER_SQL, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, order.getDescription());
+                ps.setString(1, order.getName());
+                ps.setString(2, order.getDescription());
                 return ps;
             }
         },keyHolder);
@@ -64,6 +65,7 @@ public class OrderDAO {
 			public Order mapRow(ResultSet rs, int index) throws SQLException {
 				Order order = new Order();
 				order.setId(rs.getInt("id"));
+				order.setName(rs.getString("name"));
 				order.setDescription(rs.getString("description"));
 				return order;
 			}

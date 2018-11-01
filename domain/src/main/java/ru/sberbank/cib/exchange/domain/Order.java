@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Order {
 	private int id;
+	private String name;
 	private String description;
 	private List<Skill> skills = new ArrayList<Skill>();
 	
@@ -14,6 +15,14 @@ public class Order {
  
 	public int getId() {
 		return id;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void setDescription(String description) {
@@ -58,6 +67,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return id + ":" + description;
+		return id + ":" + ":" + name + ":" + description;
+		
 	}
 }
