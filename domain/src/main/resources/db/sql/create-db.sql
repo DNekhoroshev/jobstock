@@ -9,7 +9,6 @@ create table skillname
 
 
 create table emp_skills(
-	id IDENTITY,
 	emp_id INT,
 	skill_id INT,
 	level varchar(10)
@@ -24,7 +23,6 @@ ADD FOREIGN KEY (SKILL_ID)
 REFERENCES SKILLNAME(ID);
 
 create table task_skills(
-	id IDENTITY,
 	task_id INT,
 	skill_id INT,
 	level varchar(10)
