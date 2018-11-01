@@ -8,12 +8,13 @@ import ru.sberbank.cib.exchange.domain.Employee;
 @RestController
 public class EmployeeController {
 
+
     @RequestMapping("/addemployee")
     public int addEmployee(@RequestParam(value = "name") String name) {
         Employee employee = new Employee();
         employee.setName(name);
 
-        //TODO Save to DB here
+
 
         return employee.getId();
     }

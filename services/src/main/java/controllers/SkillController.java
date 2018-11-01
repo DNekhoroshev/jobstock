@@ -17,7 +17,7 @@ public class SkillController {
         return skillName.getId();
     }
 
-    @RequestMapping
+    @RequestMapping("addskilltoemployee")
     public void addSkillToEmployee(@RequestParam(value = "empId") int empId,
                                   @RequestParam(value = "skillNameId") int skillId,
                                   @RequestParam(value = "level") String level)
@@ -32,7 +32,7 @@ public class SkillController {
         employee.getSkills().add(skill);
     }
 
-    @RequestMapping
+    @RequestMapping("addskilltoorder")
     public void addSkillToOrder(@RequestParam(value = "orderId") int empId,
                                    @RequestParam(value = "skillNameId") int skillId,
                                    @RequestParam(value = "level") String level)
