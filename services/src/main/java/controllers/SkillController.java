@@ -57,6 +57,6 @@ public class SkillController {
         skill.setSkillName(skillName);
         skill.setSkillLevel(SkillLevel.valueOf(level.toUpperCase()));
 
-        order.getSkills().add(skill);
+        orderDAO.addSkillToOrder(order, skill);
     }
 }

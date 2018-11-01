@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sberbank.cib.exchange.dao.OrderDAO;
 import ru.sberbank.cib.exchange.domain.Order;
 
+import java.util.List;
+
 @RestController
 public class OrderController {
     @Autowired
@@ -31,5 +33,12 @@ public class OrderController {
         Order order = orderDAO.getOrderById(id);
 
         return mapper.writeValueAsString(order);
+    }
+
+    @RequestMapping("/findAllOrders")
+    public String findAllOrdera() throws JsonProcessingException {
+        List<Order> orders = orderDAO.getAll();
+
+        return mapper.writeValueAsString(orders);
     }
 }
