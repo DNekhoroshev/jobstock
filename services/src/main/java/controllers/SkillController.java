@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sberbank.cib.exchange.dao.EmployeeDAO;
+import ru.sberbank.cib.exchange.dao.OrderDAO;
 import ru.sberbank.cib.exchange.domain.*;
 
 @RestController
 public class SkillController {
     @Autowired
     private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private OrderDAO orderDAO;
 
     @RequestMapping("/addSkillName")
     public int addSkillName(@RequestParam(value = "name") String name) {
@@ -37,11 +41,11 @@ public class SkillController {
     }
 
     @RequestMapping("addSkillToOrder")
-    public void addSkillToOrder(@RequestParam(value = "orderId") int empId,
+    public void addSkillToOrder(@RequestParam(value = "orderId") int orderId,
                                    @RequestParam(value = "skillNameId") int skillId,
                                    @RequestParam(value = "level") String level)
     {
-        Order order = null; //TODO get order from db here
+        Order order = orderDAO.getOrderById(orderId); //TODO get order from db here
         SkillName skillName = null; //TODO get skillName here
 
         Skill skill = new Skill();
