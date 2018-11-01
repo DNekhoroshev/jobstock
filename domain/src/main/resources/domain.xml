@@ -35,5 +35,14 @@
 			</bean>
 		</property>
 	</bean>
+
 	
+	<bean id="skillNameDAO" class="ru.sberbank.cib.exchange.dao.SkillNameDAO">
+		<property name="template">
+			<bean class="org.springframework.jdbc.core.JdbcTemplate">
+				<constructor-arg ref="dataSource" />
+			</bean>
+		</property>
+	</bean>
+		
 </beans>
