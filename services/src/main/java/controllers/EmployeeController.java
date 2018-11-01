@@ -11,16 +11,21 @@ import ru.sberbank.cib.exchange.domain.Employee;
 @RestController
 public class EmployeeController {
 	@Autowired
-	private EmployeeDAO dao;
+	private EmployeeDAO employeeDAO;
 	
 
-    @RequestMapping("/addemployee")
+    @RequestMapping("/addEmployee")
     public int addEmployee(@RequestParam(value = "name") String name) {
         Employee employee = new Employee();
         employee.setName(name);
-        dao.addEmployee(employee);
 
+        employeeDAO.addEmployee(employee);
 
         return employee.getId();
+    }
+
+    @RequestMapping("/findEmployee")
+    public Employee findEmployee(@RequestParam(value = "id") int id) {
+        return employeeDAO.getEmployeeById(id);
     }
 }

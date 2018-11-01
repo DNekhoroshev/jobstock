@@ -8,7 +8,7 @@ import ru.sberbank.cib.exchange.domain.Order;
 @RestController
 public class OrderController {
 
-    @RequestMapping("/addorder")
+    @RequestMapping("/addOrder")
     public int addOrder(@RequestParam(value = "description") String description) {
         Order order = new Order();
         order.setDescription(description);
