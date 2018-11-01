@@ -59,5 +59,10 @@
 			</bean>
 		</property>
 	</bean>
+	
+	<bean id="matchingDAO" class="ru.sberbank.cib.exchange.dao.MatchingDao">
+	    <property name="empDao" ref="employeeDAO" />
+	    <property name="ordDao" ref="orderDAO" />
+	</bean>
 		
 </beans>

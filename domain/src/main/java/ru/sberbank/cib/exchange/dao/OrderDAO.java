@@ -31,6 +31,9 @@ public class OrderDAO {
 	private static final String GET_ORDER_SKILLS_SQL = "select * from task_skills where task_id = ?";
 	private static final String GET_ALL_ORDER_SQL = "select id from task";
 	
+	private static final String GET_ORDERS_BY_SKILL_AND_LEVEL = "select task_id from task_skills where skill_id = ? and level = ?";
+	
+	
 	private JdbcTemplate template;
 	private SkillNameDAO skillNameDao;
 	
@@ -101,5 +104,9 @@ public class OrderDAO {
 			result.add(getOrderById(id));
 		}
 		return result;
+	}
+
+	public List<Integer> getOrderIdsBySkillNameAndLevel(int id, SkillLevel skillLevel) {
+		return template.queryForList(GET_ORDERS_BY_SKILL_AND_LEVEL, Integer.class, new Object[]{id, skillLevel.name()});
 	}
 }

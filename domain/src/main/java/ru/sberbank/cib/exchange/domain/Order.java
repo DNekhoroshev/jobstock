@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-	private int id;
+	private int id = -1;
 	private String name;
 	private String description;
 	private List<Skill> skills = new ArrayList<Skill>();
