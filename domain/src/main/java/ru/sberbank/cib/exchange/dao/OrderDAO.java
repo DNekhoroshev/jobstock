@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import ru.sberbank.cib.exchange.domain.Employee;
 import ru.sberbank.cib.exchange.domain.Order;
 import ru.sberbank.cib.exchange.domain.Skill;
 import ru.sberbank.cib.exchange.domain.SkillLevel;
