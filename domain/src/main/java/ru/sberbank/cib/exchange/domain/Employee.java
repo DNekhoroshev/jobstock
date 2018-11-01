@@ -1,12 +1,13 @@
 package ru.sberbank.cib.exchange.domain;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Employee {
 	private int id;
 	private String name;
-	
+	private List<Skill> skills = new ArrayList<Skill>();
+
 	
 	public int getId() {
 		return id;
