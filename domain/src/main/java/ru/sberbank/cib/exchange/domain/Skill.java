@@ -3,8 +3,16 @@ package ru.sberbank.cib.exchange.domain;
 public class Skill {
 	private int id;
 	private String name;
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
-	public Skill(String name) {
+	public int getId() {
+		return id;
+	}
+	
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -12,15 +20,20 @@ public class Skill {
 		return name;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	@Override
+	public int hashCode() {
+		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getId() {
-		return id;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj.getClass() != Skill.class) {
+			return false;
+		}
+		return this.id == ((Skill) obj).id;
 	}
 	
 	@Override
