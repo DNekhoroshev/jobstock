@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +17,29 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import ru.sberbank.cib.exchange.domain.Employee;
 import ru.sberbank.cib.exchange.domain.Order;
+import ru.sberbank.cib.exchange.domain.Skill;
+import ru.sberbank.cib.exchange.domain.SkillLevel;
+import ru.sberbank.cib.exchange.domain.SkillName;
 
 public class OrderDAO {
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeDAO.class);
 	private static final String ADD_ORDER_SQL = "insert into task(description) values(?)";
 	private static final String GET_ORDER_BY_ID_SQL = "select * from task where id = ?";
+	private static final String ADD_SKILL_TO_ORDER_SQL = "insert into task_skills(task_id, skill_id, level) values(?, ?, ?)";
+	private static final String GET_ORDER_SKILLS_SQL = "select * from task_skills where task_id = ?";
+	private static final String GET_ALL_ORDER_SQL = "select id from task";
+	
 	private JdbcTemplate template;
+	private SkillNameDAO skillNameDao;
 	
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
+	}
+	
+	public void setSkillNameDao(SkillNameDAO skillNameDao) {
+		this.skillNameDao = skillNameDao;
 	}
 	
 	public void addOrder(final Order order) {
@@ -44,7 +60,7 @@ public class OrderDAO {
 	}
 	
 	public Order getOrderById(int id) {
-		return template.queryForObject(GET_ORDER_BY_ID_SQL, new Object[] {id}, new RowMapper<Order>() {
+		Order order = template.queryForObject(GET_ORDER_BY_ID_SQL, new Object[] {id}, new RowMapper<Order>() {
 			public Order mapRow(ResultSet rs, int index) throws SQLException {
 				Order order = new Order();
 				order.setId(rs.getInt("id"));
@@ -52,7 +68,36 @@ public class OrderDAO {
 				return order;
 			}
 		});
+		
+		List<Map<String,Object>> list = template.queryForList(GET_ORDER_SKILLS_SQL, new Object[]{order.getId()});
+		for (Map<String, Object> map : list) {
+			int skill_id = (Integer) map.get("skill_id");
+			SkillName skillName = skillNameDao.getSkillNameById(skill_id);
+			String level = (String) map.get("level");
+			Skill skill = new Skill();
+			skill.setSkillName(skillName);
+			skill.setSkillLevel(SkillLevel.valueOf(level));
+			order.addSkill(skill);
+		}
+		return order;
+	}
+	
+	
+	public void addSkillToOrder(Order order, Skill skill) {
+		int snId = skill.getSkillName().getId();
+		int ordId = order.getId();
+		String level = skill.getSkillLevel().name();
+		int rows = template.update(ADD_SKILL_TO_ORDER_SQL, new Object[]{ordId, snId, level});
+		logger.info("ADD SKILL TO ORDER rows" + rows);
+		order.addSkill(skill);
 	}
 
-
+	public List<Order> getAll() {
+		List<Order> result = new ArrayList<Order>();
+		List<Integer> list = template.queryForList(GET_ALL_ORDER_SQL, Integer.class);
+		for (Integer id : list) {
+			result.add(getOrderById(id));
+		}
+		return result;
+	}
 }

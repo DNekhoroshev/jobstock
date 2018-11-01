@@ -38,6 +38,10 @@ public class Application {
 		
 		Employee newEmp = dao.getEmployeeById(emp.getId());
 		logger.info("" + newEmp);
+		dao.addEmployee(newEmp);
+		
+		logger.info("All Emp " + dao.getAll().size());
+		
 		
 		
 //		Employee byId = dao.getEmployeeById(emp.getId());
