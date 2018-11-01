@@ -13,12 +13,17 @@ public class Application {
 	
 	public static void main(String[] args) {
 		logger.info("Starting");
-		ApplicationContext context = new ClassPathXmlApplicationContext("/application.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("/domain.xml");
 		EmployeeDAO dao = context.getBean(EmployeeDAO.class);
 		Employee emp = new Employee();
 		emp.setName("Hello");
 		dao.addEmployee(emp);
+		
+		Employee byId = dao.getEmployeeById(emp.getId());
+		
+		
 		logger.info("Employee: " + emp);
+		logger.info("Employee by id: " + byId);
 		logger.info("Started");
 		
 	}
