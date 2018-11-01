@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,9 @@ public class EmployeeDAO {
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeDAO.class);
 	private static final String ADD_EMPLOYEE_SQL = "Insert into employee(name) values (?)";
 	private static final String GET_EMPLOYEE_BY_ID_SQL = "select * from employee where id = ?";
+	
+	private static final String GET_ALL_EMPLOYEE_SQL = "select id from employee";
+	
 	private static final String GET_EMPLOYEE_SKILLS_SQL = "select * from emp_skills where emp_id = ?";
 	private static final String ADD_SKILL_TO_EMPLOYEE_SQL = "insert into emp_skills(emp_id, skill_id, level) values(?, ?, ?)";
 	
@@ -88,4 +92,16 @@ public class EmployeeDAO {
 		logger.info("ADD SKILL TO EMP rows" + rows);
 		emp.addSkill(skill);
 	}
+	
+	
+	public List<Employee> getAll() {
+		//TODO make it right
+		List<Employee> result = new ArrayList<Employee>();
+		List<Integer> list = template.queryForList(GET_ALL_EMPLOYEE_SQL, Integer.class);
+		for (Integer id : list) {
+			result.add(getEmployeeById(id));
+		}
+		return result;
+	}
+	
 }
