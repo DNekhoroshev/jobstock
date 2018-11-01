@@ -23,7 +23,7 @@ public class OrderController {
     }
 
     @RequestMapping("/findOrder")
-    public Order findOrder(@RequestParam(value = "orderId") int id) {
+    public Order findOrder(@RequestParam(value = "id") int id) {
         return orderDAO.getOrderById(id);
     }
 }
