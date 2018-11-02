@@ -1,5 +1,8 @@
 package ru.sberbank.jobstock.admin.view;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
@@ -39,14 +42,14 @@ public class CreateEmployeeController {
 	}
 	
 	@FXML
-	private void handleCreate() {		
+	private void handleCreate() throws UnsupportedEncodingException {		
 		ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
-        String url = Constants.REST_URI+"/addEmployee?name="+empName.getText();
+        String url = Constants.REST_URI+"/addEmployee?name="+URLEncoder.encode(empName.getText(), "UTF-8");
         WebResource webResource = client.resource(UriBuilder.fromUri(url).build());
         
-        String id = webResource.accept("application/json").get(String.class);
-                
+        String id = webResource.accept("application/json").get(String.class);        
+        
         url = Constants.REST_URI+"/findEmployee?id="+id;
         webResource = client.resource(UriBuilder.fromUri(url).build());
         

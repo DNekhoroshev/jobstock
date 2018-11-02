@@ -1,5 +1,8 @@
 package ru.sberbank.jobstock.admin.view;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.ws.rs.core.UriBuilder;
 
 import com.sun.jersey.api.client.Client;
@@ -34,11 +37,11 @@ public class CreateSkillController {
 	}
 	
 	@FXML
-	private void handleCreate() {		
+	private void handleCreate() throws UnsupportedEncodingException {		
 		System.out.println("AAA");
 		ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
-        String url = Constants.REST_URI+"/addSkillName?name="+skillName.getText();
+        String url = Constants.REST_URI+"/addSkillName?name="+URLEncoder.encode(skillName.getText(),"UTF-8");
         WebResource webResource = client.resource(UriBuilder.fromUri(url).build());
         System.out.println(url);
         String id = webResource.accept("application/json").get(String.class);                

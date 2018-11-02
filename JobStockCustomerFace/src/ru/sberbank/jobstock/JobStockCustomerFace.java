@@ -37,6 +37,7 @@ public class JobStockCustomerFace extends Application {
          // Отображаем сцену, содержащую корневой макет.
             Scene scene = new Scene(rootLayout,1024,768);
             primaryStage.setScene(scene);
+            primaryStage.setTitle("Биржа задач - АРМ исполнителя");
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

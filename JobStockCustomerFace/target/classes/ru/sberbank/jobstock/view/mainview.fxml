@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sberbank.jobstock.view.JobStockCustomerFaceMainView">
    <top>
       <Label fx:id="empName" text="Label" BorderPane.alignment="CENTER" />
@@ -18,12 +17,26 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="skills" layoutX="41.0" layoutY="81.0" prefHeight="380.8" prefWidth="282.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <center>
+                        <ListView fx:id="skills" prefHeight="380.8" prefWidth="282.4" />
+                     </center>
+                     <top>
+                        <Label text="Навык" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="orders" layoutX="14.0" layoutY="90.0" prefHeight="380.8" prefWidth="310.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <center>
+                        <ListView fx:id="orders" prefHeight="380.8" prefWidth="310.4" />
+                     </center>
+                     <top>
+                        <Label text="Задача" BorderPane.alignment="CENTER" />
+                     </top>
+                  </BorderPane>
                </children>
             </AnchorPane>
         </items>

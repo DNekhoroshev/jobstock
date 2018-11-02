@@ -1,5 +1,8 @@
 package ru.sberbank.jobstock.admin.view;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.ws.rs.core.UriBuilder;
 
 import com.sun.jersey.api.client.Client;
@@ -36,10 +39,10 @@ public class CreateOrderController {
 	}
 	
 	@FXML
-	private void handleCreate() {		
+	private void handleCreate() throws UnsupportedEncodingException {		
 		ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
-        String url = Constants.REST_URI+"/addOrder?name="+orderName.getText()+"&description="+orderDescription.getText();
+        String url = Constants.REST_URI+"/addOrder?name="+URLEncoder.encode(orderName.getText(),"UTF-8")+"&description="+URLEncoder.encode(orderDescription.getText(),"UTF-8");
         WebResource webResource = client.resource(UriBuilder.fromUri(url).build());
         
         String id = webResource.accept("application/json").get(String.class);

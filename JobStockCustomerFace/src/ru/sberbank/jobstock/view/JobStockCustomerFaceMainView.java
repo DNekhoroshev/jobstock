@@ -19,6 +19,7 @@ import javafx.scene.control.TextInputDialog;
 import ru.sberbank.cib.exchange.domain.Employee;
 import ru.sberbank.cib.exchange.domain.Order;
 import ru.sberbank.cib.exchange.domain.Skill;
+import ru.sberbank.cib.exchange.domain.SkillName;
 import ru.sberbank.jobstock.Constants;
 import ru.sberbank.jobstock.JobStockCustomerFace;
 
@@ -82,7 +83,7 @@ public class JobStockCustomerFaceMainView {
 
 	public void setMainApp(JobStockCustomerFace mainApp) {
 		this.mainApp = mainApp;
-		ObservableList<Skill> skillData = FXCollections.observableArrayList();
+		ObservableList<Skill> skillData = FXCollections.observableArrayList();		
 		if((empl!=null)&&(empl.getSkills()!=null))
 			skillData.addAll(empl.getSkills());		
 		skills.setItems(skillData);	
